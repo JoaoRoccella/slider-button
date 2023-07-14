@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botão Slider</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .bts.bts-base {
+            width: 30.3px;
+            height: 13.63px;
+            border-radius: 30px;
+            margin: 10px;
+            border: 1px solid transparent; /* hackzinho */
+        }
+
+        .bts-base.bts-light {
+            background: #545454;
+            transition: .5s;
+        }
+
+        .bts-base.bts-dark {
+            background: #d9d9d9;
+            transition: all .5s;
+        }
+
+        .bts-slider {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin: 2px;
+        }
+
+        .bts-slider.bts-light {
+            background: #d9d9d9;
+            transition: all .5s
+        }
+
+        .bts-slider.bts-dark {
+            background: #545454;
+            transform: translateX(17px);
+            transition: all .5s;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="btn-slider" class="bts bts-base bts-light">
+        <div class="bts bts-slider bts-light"></div>
+    </div>
+
+    <script>
+        document.querySelector('.bts').addEventListener('click', () => {
+
+            const btsComponentes = document.querySelectorAll('.bts');
+
+            btsComponentes.forEach(btsParte => {
+
+                if (btsParte.classList.contains('bts-light')) {
+                    btsParte.classList.replace('bts-light', 'bts-dark');
+                } else {
+                    btsParte.classList.replace('bts-dark', 'bts-light');
+                }
+
+            });
+
+        });
+    </script>
+</body>
+
+</html>
