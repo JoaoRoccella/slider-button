@@ -62,7 +62,8 @@
     </div>
 
     <script>
-        const tema = localStorage.getItem('tema') ? localStorage.getItem('tema') : 'light';
+        
+        const tema = localStorage.getItem('tema') ?? 'light'; // "??" é um operador de coalescência nula (retorna o primeiro valor não nulo na sequência em que está sendo testado)
 
         document.documentElement.setAttribute('data-theme', tema);
 
