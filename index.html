@@ -6,44 +6,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Botão Slider</title>
     <style>
-        * {
+       :root {
+        --cor-fundo: #fff;
+       }
+       [data-theme='dark'] {
+        --cor-fundo: #545454;
+       }
+       body {
+            background-color: var(--cor-fundo);
+            transition: background .5s;
+       }
+        .bts.bts-base {
             margin: 0;
             padding: 0;
-        }
-
-        .bts.bts-base {
-            width: 30.3px;
-            height: 13.63px;
+            width: 100px;
+            height: 50px;
             border-radius: 30px;
-            margin: 10px;
-            border: 1px solid transparent; /* hackzinho */
+            border: 1px solid transparent; /* hackzinho*/
+            transition: all .5s;
         }
 
-        .bts-base.bts-light {
+        .bts-base.light {
             background: #545454;
-            transition: .5s;
         }
 
-        .bts-base.bts-dark {
+        .bts-base.dark {
+            background: #d9d9d9;
+        }
+
+        .bts-slider {
+            margin: 5px;
+            padding: 0;
+            width: 40px;
+            aspect-ratio: 1 / 1;
+            border-radius: 50%;
+        }
+
+        .bts-slider.light {
             background: #d9d9d9;
             transition: all .5s;
         }
 
-        .bts-slider {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            margin: 2px;
-        }
-
-        .bts-slider.bts-light {
-            background: #d9d9d9;
-            transition: all .5s
-        }
-
-        .bts-slider.bts-dark {
+        .bts-slider.dark {
             background: #545454;
-            transform: translateX(17px);
+            transform: translateX(50px);
             transition: all .5s;
         }
     </style>
@@ -51,25 +57,38 @@
 
 <body>
 
-    <div id="btn-slider" class="bts bts-base bts-light">
-        <div class="bts bts-slider bts-light"></div>
+    <div id="btn-slider" class="bts bts-base">
+        <div class="bts bts-slider"></div>
     </div>
 
     <script>
-        document.querySelector('.bts').addEventListener('click', () => {
+        const tema = localStorage.getItem('tema') ? localStorage.getItem('tema') : 'light';
 
-            const btsComponentes = document.querySelectorAll('.bts');
+        document.documentElement.setAttribute('data-theme', tema);
+
+        const btsComponentes = document.querySelectorAll('.bts');
+
+        btsComponentes.forEach(btsParte => {
+            btsParte.classList.add(tema);
+        })
+
+
+        document.querySelector('.bts').addEventListener('click', () => {
 
             btsComponentes.forEach(btsParte => {
 
-                if (btsParte.classList.contains('bts-light')) {
-                    btsParte.classList.replace('bts-light', 'bts-dark');
+                if (btsParte.classList.contains('light')) {
+                    btsParte.classList.replace('light', 'dark');
+                    localStorage.setItem('tema', 'dark');
+                    document.documentElement.setAttribute('data-theme','dark');
                 } else {
-                    btsParte.classList.replace('bts-dark', 'bts-light');
+                    btsParte.classList.replace('dark', 'light');
+                    localStorage.setItem('tema', 'light');
+                    document.documentElement.setAttribute('data-theme','light');
                 }
 
             });
-
+            
         });
     </script>
 </body>
